@@ -7,4 +7,4 @@ que deve incluir etapas de verificação de código,
 testes automatizados, build, empacotamento e simulação de deploy
 — conforme os conceitos discutidos nos capítulos do material didático.
 
-Houve disparo?
+Houve disparo? Sera ?

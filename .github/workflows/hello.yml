@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Exibir mensagem
-        run: echo "Pipeline iniciado com sucesso"
+        run: echo "Executado:Pipeline iniciado com sucesso"

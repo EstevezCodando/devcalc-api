@@ -32,6 +32,9 @@ jobs:
           java-version: "25"
           cache: maven
 
+      - name: Dar permissão ao mvnw
+        run: chmod +x mvnw
+
       - name: Build
         run: ./mvnw -B clean install -DskipTests
 
@@ -48,6 +51,9 @@ jobs:
           distribution: temurin
           java-version: "25"
           cache: maven
+
+      - name: Dar permissão ao mvnw
+        run: chmod +x mvnw
 
       - name: Testes
         run: ./mvnw -B test

@@ -5,6 +5,7 @@ para implementação e validação de pipelines de CI/CD com GitHub Actions.
 
 ---
 
+Versão: 0.1 test
 ## Objetivo
 
 A DevCalc fornece operações de soma, subtração, multiplicação e divisão

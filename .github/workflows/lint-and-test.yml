@@ -1,0 +1,50 @@
+name: lint-and-test
+
+on:
+  workflow_call:
+    inputs:
+      run_tests:
+        required: false
+        type: boolean
+        default: true
+      run_lint:
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  lint:
+    if: ${{ inputs.run_lint == true }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Checkstyle (Marketplace)
+        uses: dbelyaev/action-checkstyle@v3.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-check
+          level: warning
+          filter_mode: nofilter
+          checkstyle_config: google_checks.xml
+
+  test:
+    if: ${{ inputs.run_tests == true }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: maven
+
+      - name: Dar permissão ao mvnw
+        run: chmod +x mvnw
+
+      - name: Testes
+        run: ./mvnw -B test

@@ -12,31 +12,14 @@ on:
       - "mvnw.cmd"
       - ".mvn/**"
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 jobs:
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout do codigo
-        uses: actions/checkout@v4
-
-  checkstyle:
-    runs-on: ubuntu-latest
-    needs: checkout
-    steps:
-      - name: Checkout do codigo
-        uses: actions/checkout@v4
-
-      - name: Checkstyle (Marketplace: Checkstyle for Java)
-        uses: dbelyaev/action-checkstyle@v3.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-check
-          level: warning
-          filter_mode: nofilter
-
   build:
     runs-on: ubuntu-latest
-    needs: checkout
     steps:
       - name: Checkout do codigo
         uses: actions/checkout@v4
@@ -54,29 +37,16 @@ jobs:
       - name: Build
         run: ./mvnw -B clean install -DskipTests
 
-  test:
-    runs-on: ubuntu-latest
+  lint-and-test:
     needs: build
-    steps:
-      - name: Checkout do codigo
-        uses: actions/checkout@v4
-
-      - name: Instalar Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "25"
-          cache: maven
-
-      - name: Dar permissão ao mvnw
-        run: chmod +x mvnw
-
-      - name: Testes
-        run: ./mvnw -B test
+    uses: ./.github/workflows/lint-and-test.yml
+    with:
+      run_tests: true
+      run_lint: true
 
   package:
     runs-on: ubuntu-latest
-    needs: test
+    needs: lint-and-test
     steps:
       - name: Checkout do codigo
         uses: actions/checkout@v4
@@ -99,7 +69,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [ build, test, package ]
+    needs: [ build, lint-and-test, package ]
     steps:
       - name: Deploy
         run: echo "Deploy realizado com sucesso"

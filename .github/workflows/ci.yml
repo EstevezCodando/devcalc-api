@@ -48,12 +48,6 @@ jobs:
       - name: Build
         run: ./mvnw -B clean install -DskipTests
 
-      - name: Falha proposital (TP2 Ex.5)
-        run: exit 1
-
-      - name: Build do projeto
-        run: ./mvnw -B clean package -DskipTests
-
   lint-and-test:
     needs: build
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.run_tests == true || inputs.run_lint == true }}

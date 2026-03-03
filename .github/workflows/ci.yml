@@ -19,6 +19,21 @@ jobs:
       - name: Checkout do codigo
         uses: actions/checkout@v4
 
+  checkstyle:
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Checkstyle (Marketplace: Checkstyle for Java)
+        uses: dbelyaev/action-checkstyle@v3.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-check
+          level: warning
+          filter_mode: nofilter
+
   build:
     runs-on: ubuntu-latest
     needs: checkout

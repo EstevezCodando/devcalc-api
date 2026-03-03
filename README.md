@@ -1,3 +1,5 @@
+[![ci](https://github.com/EstevezCodando/devcalc-api/actions/workflows/ci.yml/badge.svg)](https://github.com/EstevezCodando/devcalc-api/actions/workflows/ci.yml)
+
 # DevCalc API
 
 API REST em Java para operações matemáticas básicas, criada como base
@@ -6,6 +8,7 @@ para implementação e validação de pipelines de CI/CD com GitHub Actions.
 ---
 
 Versão: 0.1 test
+
 ## Objetivo
 
 A DevCalc fornece operações de soma, subtração, multiplicação e divisão
@@ -64,11 +67,13 @@ Todos os endpoints utilizam método GET e recebem os parâmetros `a` e `b`.
 ### Executar testes
 
 Git Bash:
+
 ```bash
 ./mvnw clean test
 ```
 
 PowerShell:
+
 ```powershell
 .\mvnw.cmd clean test
 ```
@@ -82,6 +87,7 @@ PowerShell:
 ```
 
 Arquivo gerado em:
+
 ```
 target/devcalc-api-1.0.0.jar
 ```
